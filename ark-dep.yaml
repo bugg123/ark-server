@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arkgame
+  labels:
+    app: arkgame
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arkgame
+  template:
+    metadata:
+      labels:
+        app: arkgame
+    spec:
+      containers:
+        - image: boerngenschmidt/ark-docker
+          name: arkgame
+          env:
+              # Server Parameters
+            - name: SESSIONNAME
+              value: AwesomeArkers
+            - name: SERVERMAP
+              value: Ragnarok
+            - name: SERVERPASSWORD
+              value: secretserverpassword
+            - name: ADMINPASSWORD
+              value: secretadminpassword
+          ports:
+            - containerPort: 27015
+              protocol: UDP
+              name: ark-steams
+            - containerPort: 7777
+              protocol: UDP
+              name: ark-gameclient
+            - containerPort: 7778
+              protocol: UDP
+              name: ark-gamerawudp
+          volumeMounts:
+            - name: arkgame-persistent-storage
+              mountPath: /ark
+        volumes:
+        - name: arkgame-persistent-storage
+          persistentVolumeClaim:
+            claimName: arkgame-pv-claim
