@@ -24,9 +24,9 @@ spec:
             - name: SERVERMAP
               value: Ragnarok
             - name: SERVERPASSWORD
-              value: secretserverpassword
+              value: arktime
             - name: ADMINPASSWORD
-              value: secretadminpassword
+              value: adminarktimehuzzah
           ports:
             - containerPort: 27015
               protocol: UDP
@@ -38,9 +38,9 @@ spec:
               protocol: UDP
               name: ark-gamerawudp
           volumeMounts:
-            - name: arkgame-persistent-storage
-              mountPath: /ark
-        volumes:
-        - name: arkgame-persistent-storage
-          persistentVolumeClaim:
-            claimName: arkgame-pv-claim
+          - name: arkgame-persistent-storage
+            mountPath: /ark
+      volumes:
+      - name: arkgame-persistent-storage
+        persistentVolumeClaim:
+          claimName: arkgame-pv-claim
