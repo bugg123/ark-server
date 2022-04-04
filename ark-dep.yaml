@@ -15,18 +15,20 @@ spec:
         app: arkgame
     spec:
       containers:
-        - image: boerngenschmidt/ark-docker
+        - image: hermsi/ark-server
           name: arkgame
           env:
               # Server Parameters
-            - name: SESSIONNAME
+            - name: SESSION_NAME
               value: AwesomeArkers
-            - name: SERVERMAP
-              value: Ragnarok
-            - name: SERVERPASSWORD
+            - name: SERVER_MAP
+              value: Aberration_P
+            - name: SERVER_PASSWORD
               value: arktime
-            - name: ADMINPASSWORD
+            - name: ADMIN_PASSWORD
               value: adminarktimehuzzah
+            - name: GAME_MOD_IDS
+              value: "731604991,1380777369,1439559887,1404697612,895711211,558651608,736236773,1981064221,1995303438,1445181373"
           ports:
             - containerPort: 27015
               protocol: UDP
@@ -39,7 +41,7 @@ spec:
               name: ark-gamerawudp
           volumeMounts:
           - name: arkgame-persistent-storage
-            mountPath: /ark
+            mountPath: /app
       volumes:
       - name: arkgame-persistent-storage
         persistentVolumeClaim:
